@@ -1,0 +1,71 @@
+%% LyX 2.1.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+
+\documentclass[english]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+ % this default might be overridden by plain title style
+ \newcommand\makebeamertitle{\frame{\maketitle}}%
+ % (ERT) argument for the TOC
+ \AtBeginDocument{%
+   \let\origtableofcontents=\tableofcontents
+   \def\tableofcontents{\@ifnextchar[{\origtableofcontents}{\gobbletableofcontents}}
+   \def\gobbletableofcontents#1{\origtableofcontents}
+ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usetheme{Rochester}
+\usecolortheme{beaver}
+
+\usenavigationsymbolstemplate{}
+\setbeamercolor{structure}{fg=darkred}
+\setbeamercolor{block body}{bg=gray!10!white}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+\title{Intro to PyCuda}
+\subtitle{For Bayesian Stats and Gaussian Mixture Models}
+
+
+\author{Varun Nayyar}
+
+
+\date{27/07/18}
+\makebeamertitle
+
+
+\begin{frame}[t]\frametitle{Motivating Problem}
+
+\begin{block}{Motivation}
+    ABCs have found widespread use in many areas of computational biology and population genetics.
+
+    In the case of contamination models, 
+    \begin{align*}
+        p(x) &= (1-\pi)p(x|\theta_{main}) + \pi p(x|\theta_c)
+    \end{align*}
+    These are easily modelled using mixture models, but there are limited methods available for analysing contamination models with intractable likelihoods.
+\end{block}
+    
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
