@@ -8,7 +8,6 @@ from source import LikelihoodEvaluator
 class SingleCoreLL(LikelihoodEvaluator):
 
     def __init__(self, Xpoints, numMixtures):
-        print("Single Core Implementation Chosen")
         super().__init__(Xpoints, numMixtures)
 
     def __str__(self):

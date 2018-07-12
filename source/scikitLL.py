@@ -14,7 +14,6 @@ class ScikitLL(LikelihoodEvaluator):
     """
 
     def __init__(self, Xpoints, numMixtures):
-        print("Scikits Learn Implementation Chosen")
         super().__init__(Xpoints, numMixtures)
         self.evaluator = GaussianMixture(numMixtures, 'diag')
         self.Xpoints = Xpoints
