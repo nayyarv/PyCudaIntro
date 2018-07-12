@@ -21,15 +21,10 @@ class GPULL(LikelihoodEvaluator):
         from pycuda.compiler import SourceModule
 
         self.gpuarray = gpuarray
-
+        self.numThreads = 1024
         with open("kernel.cu") as f:
+            mod = SourceModule(f.read())
 
-            if self.numPoints >= 1024:
-                mod = SourceModule(f.read().format(MAX_THREADS=1024))
-                self.numThreads = 1024
-            else:
-                mod = SourceModule(f.read().format(MAX_THREADS=self.numPoints))
-                self.numThreads = self.numPoints
 
         if self.numPoints > self.numThreads:
             self.numBlocks = self.numPoints / self.numThreads

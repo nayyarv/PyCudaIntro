@@ -3,7 +3,7 @@
 // #include <stdio.h>
 
 #define MAXDIM 30
-#define MAXTHREADS {MAX_THREADS}
+#define MAXTHREADS 1024
 #define PI 3.1415926536
 
 __device__ float normalDistribution(float* x, float* mu,
@@ -82,13 +82,14 @@ __global__ void likelihoodKernel(float *Xpoints, float *means, float *diagCovs,
 
 	__syncthreads();
 	//Following CUDA guidelines here for quick reduction
-	//TODO: Speed up computation by having a block per mixture? If possible, also allows for marginal updates
+	//TODO: Speed up computation by having a block per mixture?
+	// If possible, also allows for marginal updates
 
 
 	if (index<numPoints) //Check that we're in bounds!
 	{
 		// Just make sure we have stuff to compute
-		//Will contain the id of the x value
+		// Will contain the id of the x value
 
 		float value = 0;
 
