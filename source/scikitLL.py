@@ -28,4 +28,4 @@ class ScikitLL(LikelihoodEvaluator):
         self.evaluator.means_ = means
         self.evaluator.precisions_cholesky_ = _compute_precision_cholesky(diagCovs, "diag")
 
-        return np.sum(self.evaluator.score(self.Xpoints))
+        return self.numPoints * np.sum(self.evaluator.score(self.Xpoints))

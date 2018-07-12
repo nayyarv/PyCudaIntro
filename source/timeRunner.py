@@ -8,13 +8,13 @@ import numpy as np
 from source.scikitLL import ScikitLL
 from source.simple import SingleCoreLL
 
-N = 100
+N = 1000
 d = 13
 K = 8
 
-number = 1000
+number = 100
 
-setup = """
+setup = f"""
 import numpy as np
 from source.scikitLL import ScikitLL
 from source.simple import SingleCoreLL
@@ -28,7 +28,7 @@ testMu = np.random.random((K, d))
 testSigma = np.ones((K, d))
 testWeights = np.ones(K) / K
 
-eval = {LL}(testX, K)
+eval = {{LL}}(testX, K)
 """
 
 runs = "[eval.loglikelihood(testMu, testSigma, testWeights)]"
@@ -37,8 +37,7 @@ runs = "[eval.loglikelihood(testMu, testSigma, testWeights)]"
 def main():
     for LL in ["ScikitLL", "SingleCoreLL"]:
         print(LL)
-        print(timeit.timeit(
-            runs, setup.format(LL=LL, N=N, d=d, K=K), number=number))
+        print(timeit.timeit(runs, setup.format(LL=LL), number=number))
 
 
 if __name__ == '__main__':
