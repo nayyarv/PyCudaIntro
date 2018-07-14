@@ -111,7 +111,7 @@ Computational Numbers
     \begin{itemize}
       \item Eh, my computer is fast enough
       \item Pure Python (numpy)
-      \item Took 36 us per datapoint, or 36s for whole dataset
+      \item Averaged 36 us per datapoint, or 36s for whole dataset
       \item $10^6$ evaluations would take ~1 year
     \end{itemize}
 
@@ -163,6 +163,19 @@ Computational Numbers
     \end{center}
 \end{frame}
 
+
+\begin{frame}[t]\frametitle{Aside: Timing Methodology and Testing}
+\begin{itemize}
+    \item fixed $K=8$ and $d=13$ as per live behaviour. Varied $N$ from $10^2$ to $10^6$ for completeness. $10^6$ is intended data size.
+    \item Used \texttt{timeit} module with 100 iterations and report totaltime/$100*N$
+\end{itemize}
+Testing
+\begin{itemize}
+    \item Manually compared my hand written version to R implementation using output
+    \item Used \texttt{pytest} to create random tests to check that random data and parameters matched values.
+\end{itemize}
+It's good to be rigorous - Math Major
+\end{frame}
 
 
 \begin{frame}[t]\frametitle{CUDA}
@@ -218,6 +231,42 @@ Sum an array $\left(\begin{array}{cccc} a_{1} & a_{2} & \cdots & a_{n}\end{array
 \end{frame}
 
 
+\begin{frame}[t]\frametitle{Thinking with CUDA (Summing an Array)}
+
+Sum an array $\left(\begin{array}{cccc} a_{1} & a_{2} & \cdots & a_{n}\end{array}\right)$
+
+  \begin{itemize}
+    \item<1-> Single Core = $O(n)$
+    \item<1> CUDA ??
+    \item<2-> theoretical CUDA = $O(lg (n))$
+    \item<3-> First pass, have $N/2$ threads add pos $i$ and pos $i+N/2$
+    \item<3-> Second pass, have $N/4$ threads add pos $i$ and pos $i+N/4$
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[t]\frametitle{CUDA Architecture}
+
+    \begin{center}
+        \includegraphics[width=12cm]{img/cudamodel.png}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}[t]\frametitle{CUDA Architecture}
+
+  \begin{itemize}
+    \item We have a grid of blocks and blocks of threads. 
+    \item Note that the grid, blocks and threads can be 3d if necessary, but for simplicity we will only consider 1d blocks and threads and a single grid.
+    \item Each block runs 32 threads at a time (called warps) and shares a limited amount of memory available to all threads (usually 48kB)
+    \item GTX 970 = 128 cores * 13 SMs = 52 concurrent warps can run.
+    \item Threads act asynchronously - when they access data, threads give up resources while waiting for data.
+    \item memory access and data transfers (especially between host and device) have a lot of tricks and patterns to optimize (none of which I'm going to investigate)
+
+  \end{itemize}
+
+\end{frame}
 
 
 
