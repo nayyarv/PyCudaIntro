@@ -39,24 +39,24 @@
 \makebeamertitle
 
 \begin{frame}[t]\frametitle{Outline}
-Me = Math Major + Script Kiddy (Manage Expectations please)
+Me = Math Major + Script Kiddy (Manage Expectations)
  
 \begin{block}{What to Expect}
   \begin{itemize}
     \item Some Math
     \item Iterative Process I went through
-    \item Thinking with CUDA
+    \item Thinking with CUDA and Basic Syntax
     \item How to use PyCUDA to avoid complicated work
   \end{itemize}
 
 \end{block}
 
-\begin{alertblock}{What not to Expect}
+\begin{block}{What NOT to Expect}
   \begin{itemize}
     \item How PyCUDA does it's magic
-    \item Advanced CUDA (or even Intermediate)
+    \item Intermediate/Advanced CUDA
   \end{itemize}
-\end{alertblock}
+\end{block}
 
 
 \end{frame}
@@ -72,6 +72,7 @@ Me = Math Major + Script Kiddy (Manage Expectations please)
 
 
 \begin{frame}[t]\frametitle{Gaussian Mixture Models (GMMs)}
+K-means++
 
 \begin{block}{Mathematical Notation}
 
@@ -93,7 +94,10 @@ of mixture component $k$ (and sum to 1).
 \begin{columns}
 
   \column{0.5\textwidth}
-  This can't 
+    \begin{itemize}
+      \item Very straightforward function 
+      \item datasize didn't seem huge
+    \end{itemize}
 
 
   \column{0.5\textwidth}
@@ -108,8 +112,8 @@ of mixture component $k$ (and sum to 1).
 \begin{frame}[t]\frametitle{Need for speed}
 \begin{itemize}
     \item GMM likelihood formula doesn't decompose into a mathematically simpler form
-    \item Number of flops are of the order of O(NKd), in my case, N = 100,000, K = 8, d = 13. 
-    \item I needed to evaluate the likelihood 100,000 times for a fixed dataset while the parameters were varied.
+    \item Number of flops are of the order of O(NKd), in my case, N = 10^6, K = 8, d = 13. 
+    \item I needed to evaluate the likelihood 10^6 times for a fixed dataset while the parameters were varied.
 \end{itemize}        
 \end{frame}
 

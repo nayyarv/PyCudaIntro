@@ -27,20 +27,19 @@ testWeights = np.ones(K) / K
 eval = {LL}(testX, K)
 """
 
-runs = "[eval.loglikelihood(testMu, testSigma, testWeights) " \
-       "for i in range(10)]"
+runs = "eval.loglikelihood(testMu, testSigma, testWeights)"
 
 @click.command()
 @click.option("--method", type=click.Choice(["ScikitLL", "SingleCoreLL"]),
               default="ScikitLL")
 def main(method):
-    print(method)
+    print(f"{method} (100 iterations)")
     print("# pow, N, tot_time(s), scaled_time (us)")
     for Npow in range(2, 7):
         N = 10 ** Npow
         rtime = timeit.timeit(runs, setup.format(N=N, LL=method),
-                              number=10)
-        print(f"{Npow}, {N}, {rtime}, {rtime/N * 10**6}")
+                              number=100)
+        print(f"{Npow}, {N}, {rtime:.2f}, {rtime/N * 10**4:.2f}")
     print()
 
 
