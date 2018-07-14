@@ -30,7 +30,8 @@ eval = {LL}(testX, K)
 runs = "eval.loglikelihood(testMu, testSigma, testWeights)"
 
 @click.command()
-@click.option("--method", type=click.Choice(["ScikitLL", "SingleCoreLL"]),
+@click.option("--method",
+              type=click.Choice(["ScikitLL", "SingleCoreLL"]),
               default="ScikitLL")
 def main(method):
     print(f"{method} (100 iterations)")
