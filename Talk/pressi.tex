@@ -5,6 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{amsmath}
+\usepackage{listings}
+
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -44,7 +46,6 @@ Me = Math Major + Script Kiddy (Manage Expectations)
 \begin{block}{What to Expect}
   \begin{itemize}
     \item Some Math
-    \item Iterative Process I went through
     \item Thinking with CUDA and Basic Syntax
     \item How to use PyCUDA to avoid complicated work
   \end{itemize}
@@ -142,7 +143,7 @@ Computational Numbers
       \item Stand on the shoulders of giants (scikit-learn)
       \item Reverse engineered the likelihood evaluator
       \item 72x improvement!
-      \item Took 0.5 us per datapoint, or 5s for whole dataset
+      \item Took 0.5 us per datapoint, or 0.5s for whole dataset
       \item $10^6$ evaluations would take ~5 days!
     \end{itemize}
 
@@ -161,6 +162,62 @@ Computational Numbers
         \includegraphics[width=10cm]{img/skandsimple.png}
     \end{center}
 \end{frame}
+
+
+
+\begin{frame}[t]\frametitle{CUDA}
+  \begin{itemize}
+    \item Stood for Compute Unified Device Architecture but no one cared so this was forgotten
+    \item CUDA devices have Streaming Multiprocessors (SMs) and each has a number of CUDA cores. CUDA runs threads in batches of 32 called Warps. GTX970 has 13 SMs with 128 CUDA cores each.
+    \item in the CUDA paradigm, you need plenty of independent threads to take advantage of the architecture and to minimize memory latency via async scheduling.
+    \item Not many guarantees of all threads running exactly in parallel, so code still needs to be thread safe. 
+    \item number of threads is magnitudes greater than in standard multicore programming. 
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[t]\frametitle{Thinking with CUDA (Matrix Multiplication)}
+
+\begin{align*}
+\left(\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+\\
+\vdots &  & \ddots\\
+a_{n1} &  &  & a_{nn}
+\end{array}\right) &\times \left(\begin{array}{cccc}
+b_{11} & b_{12} & \cdots & b_{1n}\\
+\\
+\vdots &  & \ddots\\
+b_{n1} &  &  & b
+\end{array}\right)
+\end{align*}
+  \begin{itemize}
+    \item <1->Each element on output matrix requires $n$ multiplications and additions. $n^2$ elements. 
+    \item <1->Single Core = $O(n^3)$, though tricks allow for $O(n^{2.81})$
+    \item<1> CUDA??
+    \item<2-> Theoretical CUDA = $O(n)$
+    \item<3-> Create $n^2$ threads. Each takes $O(n)$ time and can be run in parallel
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[t]\frametitle{Thinking with CUDA (Summing an Array)}
+
+Sum an array $\left(\begin{array}{cccc} a_{1} & a_{2} & \cdots & a_{n}\end{array}\right)$
+
+  \begin{itemize}
+    \item<1-> Single Core = $O(n)$
+    \item<1> CUDA ??
+    \item<2-> theoretical CUDA = $O(lg (n))$
+    \item<3-> First pass, have $N/2$ threads add pos $i$ and pos $i+N/2$
+    \item<3-> Second pass, have $N/4$ threads add pos $i$ and pos $i+N/4$
+
+  \end{itemize}
+
+\end{frame}
+
+
 
 
 
