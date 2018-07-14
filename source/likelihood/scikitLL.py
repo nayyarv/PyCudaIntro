@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = "Varun Nayyar <nayyarv@gmail.com>"
 
-from source import LikelihoodEvaluator
+from .base import LikelihoodEvaluator
 
 import numpy as np
 # import at top level so we have import errors earlier than later

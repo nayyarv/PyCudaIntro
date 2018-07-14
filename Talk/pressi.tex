@@ -30,13 +30,46 @@
 \usepackage{babel}
 \begin{document}
 \title{Accelerating your Python Code}
-\subtitle{With PyCuda for GMMs}
+\subtitle{With PyCuda and GMMs}
 
 \author{Varun Nayyar}
 
 
 \date{27/07/18}
 \makebeamertitle
+
+\begin{frame}[t]\frametitle{Outline}
+Me = Math Major + Script Kiddy (Manage Expectations please)
+ 
+\begin{block}{What to Expect}
+  \begin{itemize}
+    \item Some Math
+    \item Iterative Process I went through
+    \item Thinking with CUDA
+    \item How to use PyCUDA to avoid complicated work
+  \end{itemize}
+
+\end{block}
+
+\begin{alertblock}{What not to Expect}
+  \begin{itemize}
+    \item How PyCUDA does it's magic
+    \item Advanced CUDA (or even Intermediate)
+  \end{itemize}
+\end{alertblock}
+
+
+\end{frame}
+
+
+
+\begin{frame}[t]\frametitle{Gaussian Mixture Models d=1, K=2}
+    \begin{center}
+        \includegraphics[width=10cm]{img/Combined.png}
+    \end{center}
+    
+\end{frame}
+
 
 \begin{frame}[t]\frametitle{Gaussian Mixture Models (GMMs)}
 
@@ -55,15 +88,22 @@ of mixture component $k$ (and sum to 1).
 \end{frame}
 
 
-\begin{frame}[t]\frametitle{GMMs d=1, K=2}
+\begin{frame}[t]\frametitle{Doing it Live}
+
+\begin{columns}
+
+  \column{0.5\textwidth}
+  This can't 
+
+
+  \column{0.5\textwidth}
     \begin{center}
-        \includegraphics[width=10cm]{img/Combined.png}
+        \includegraphics[height=6cm]{img/doingitlive.jpg}
     \end{center}
-    
+
+\end{columns}
+
 \end{frame}
-
-
-
 
 \begin{frame}[t]\frametitle{Need for speed}
 \begin{itemize}

@@ -2,7 +2,7 @@
 __author__ = "Varun Nayyar <nayyarv@gmail.com>"
 
 import numpy as np
-from source import LikelihoodEvaluator
+from .base import LikelihoodEvaluator
 
 
 class SingleCoreLL(LikelihoodEvaluator):

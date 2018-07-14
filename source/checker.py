@@ -4,8 +4,8 @@ __author__ = "Varun Nayyar <nayyarv@gmail.com>"
 import pytest
 import numpy as np
 
-from source.scikitLL import ScikitLL
-from source.simple import SingleCoreLL
+from source.likelihood.scikitLL import ScikitLL
+from source.likelihood.simple import SingleCoreLL
 
 N = 100
 d = 13

@@ -1,16 +1,16 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
+#  -*- coding: utf-8 -*-
 __author__ = "Varun Nayyar <nayyarv@gmail.com>"
-
-"""
-inherit from this/duck type this object 
-
-N = number of points
-d = dimensions
-K = number of mixtures
-"""
 
 
 class LikelihoodEvaluator:
+    """
+    inherit from this/duck type this object
+
+    N = number of points
+    d = dimensions
+    K = number of mixtures
+    """
 
     def __init__(self, Xpoints, numMixtures):
         """
@@ -38,14 +38,3 @@ class LikelihoodEvaluator:
         raise NotImplementedError
 
     __call__ = loglikelihood
-
-
-try:
-    from sklearn.mixture import GaussianMixture
-    import source.scikitLL
-
-    Likelihood = source.scikitLL.ScikitLL
-except ImportError:
-    import source.simple
-
-    Likelihood = source.simple.SingleCoreLL

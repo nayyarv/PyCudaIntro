@@ -5,7 +5,7 @@ __author__ = "Varun Nayyar <nayyarv@gmail.com>"
 import numpy as np
 
 import pycuda  # get import errors out of the way
-from source import LikelihoodEvaluator
+from source.likelihood.base import LikelihoodEvaluator
 
 
 class GPULL(LikelihoodEvaluator):
