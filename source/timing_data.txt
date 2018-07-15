@@ -1,3 +1,4 @@
+# 64 bit results
 ScikitLL (100 iterations)
 # pow, N, tot_time(s), scaled_time (us)
 2, 100, 0.02, 1.59

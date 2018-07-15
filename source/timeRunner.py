@@ -13,16 +13,19 @@ number = 100
 
 setup = """
 import numpy as np
-from likelihood import ScikitLL, SingleCoreLL
+from likelihood import ScikitLL, SingleCoreLL, GPULL
 
 N = {N}
 d = 13
 K = 8
 
-testX = np.random.random((N, d))
-testMu = np.random.random((K, d))
-testSigma = np.ones((K, d))
-testWeights = np.ones(K) / K
+# use float32 for direct comparison to cuda
+
+testX = np.random.random((N, d)).astype(np.float32)
+testMu = np.random.random((K, d)).astype(np.float32)
+testSigma = np.ones((K, d)).astype(np.float32)
+
+testWeights = (np.ones(K) / K).astype(np.float32)
 
 eval = {LL}(testX, K)
 """
@@ -31,7 +34,7 @@ runs = "eval.loglikelihood(testMu, testSigma, testWeights)"
 
 @click.command()
 @click.option("--method",
-              type=click.Choice(["ScikitLL", "SingleCoreLL"]),
+              type=click.Choice("SingleCoreLL,ScikitLL,GPULL".split(",")),
               default="ScikitLL")
 def main(method):
     print(f"{method} (100 iterations)")

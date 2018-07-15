@@ -2,8 +2,7 @@
 #include <math.h>
 // #include <stdio.h>
 
-#define MAXDIM 30
-#define MAXTHREADS 1024
+#define MAXTHREADS MAX_THREADS
 #define PI 3.1415926536
 
 __device__ float normalDistribution(float* x, float* mu,

@@ -9,3 +9,9 @@ try:
     from .scikitLL import ScikitLL
 except ImportError:
     pass
+
+try:
+    from .cudaLL import GPU_LL as GPULL
+except ImportError:
+    pass
+

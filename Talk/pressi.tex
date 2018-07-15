@@ -165,6 +165,7 @@ Computational Numbers
 
 
 \begin{frame}[t]\frametitle{Aside: Timing Methodology and Testing}
+Ran on Ubuntu 18.04 - i3, 8GB RAM, >3 years old
 \begin{itemize}
     \item fixed $K=8$ and $d=13$ as per live behaviour. Varied $N$ from $10^2$ to $10^6$ for completeness. $10^6$ is intended data size.
     \item Used \texttt{timeit} module with 100 iterations and report totaltime/$100*N$
@@ -175,6 +176,7 @@ Testing
     \item Used \texttt{pytest} to create random tests to check that random data and parameters matched values.
 \end{itemize}
 It's good to be rigorous - Math Major
+
 \end{frame}
 
 
@@ -247,20 +249,20 @@ Sum an array $\left(\begin{array}{cccc} a_{1} & a_{2} & \cdots & a_{n}\end{array
 \end{frame}
 
 \begin{frame}[t]\frametitle{CUDA Architecture}
-
+A grid of blocks of threads.
     \begin{center}
-        \includegraphics[width=12cm]{img/cudamodel.png}
+        \includegraphics[width=10cm]{img/cudamodel.png}
     \end{center}
-
+Could be 3d if necessary (We're gonna forget that fact)
 \end{frame}
 
 \begin{frame}[t]\frametitle{CUDA Architecture}
 
   \begin{itemize}
-    \item We have a grid of blocks and blocks of threads. 
-    \item Note that the grid, blocks and threads can be 3d if necessary, but for simplicity we will only consider 1d blocks and threads and a single grid.
     \item Each block runs 32 threads at a time (called warps) and shares a limited amount of memory available to all threads (usually 48kB)
     \item GTX 970 = 128 cores * 13 SMs = 52 concurrent warps can run.
+    \item Good idea to ensure blocks are multiple of 32 and that there are many more warps than hardware. 
+    \item Most GPUs have more single point precision compute capability 
     \item Threads act asynchronously - when they access data, threads give up resources while waiting for data.
     \item memory access and data transfers (especially between host and device) have a lot of tricks and patterns to optimize (none of which I'm going to investigate)
 
