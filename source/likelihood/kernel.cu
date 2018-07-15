@@ -98,7 +98,7 @@ __global__ void likelihoodKernel(float *Xpoints, float *means, float *diagCovs,
 													 diagCovs+(i*dim), dim);
 		}
 
-		sarray[threadIndex] = logf(value); //Log Likehlihood
+		sarray[threadIndex] = logf(value); //Log Likelihood
 
 
 
@@ -110,10 +110,7 @@ __global__ void likelihoodKernel(float *Xpoints, float *means, float *diagCovs,
 
 	// finalLikelihood[threadIndex] = sarray[threadIndex];
 
-	//Reduction
-	// Courtesy Vidhya Sethu 2014
-	// My version was terrible
-
+	// Reduction
 	__syncthreads();
 	for (int s = blockDim.x/2; s > 0; s>>=1)
 	{

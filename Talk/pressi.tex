@@ -259,18 +259,87 @@ Could be 3d if necessary (We're gonna forget that fact)
 \begin{frame}[t]\frametitle{CUDA Architecture}
 
   \begin{itemize}
-    \item Each block runs 32 threads at a time (called warps) and shares a limited amount of memory available to all threads (usually 48kB)
-    \item GTX 970 = 128 cores * 13 SMs = 52 concurrent warps can run.
+    \item Each block runs 32 threads at a time (called warps) and shares a limited amount of memory available to all threads
+    \item GTX 970 = 128 cores * 13 SMs = 52 concurrent warps
     \item Good idea to ensure blocks are multiple of 32 and that there are many more warps than hardware. 
-    \item Most GPUs have more single point precision compute capability 
+    \item Most GPUs have more 32 bit processing power
     \item Threads act asynchronously - when they access data, threads give up resources while waiting for data.
     \item memory access and data transfers (especially between host and device) have a lot of tricks and patterns to optimize (none of which I'm going to investigate)
+    \item main function is called a kernel
 
   \end{itemize}
 
 \end{frame}
 
 
+\begin{frame}[t]\frametitle{PyCUDA}
+
+  \begin{itemize}
+    \item CUDA is complex. C++ is messy. I'm a maths major
+    \item The mathematics needed to be done in Python for quick implementation and easy refinement.
+    \item Allows for easier kernel writing since you can replace \#define's once you've seen the data (defining threads is easy)
+    \item PyCUDA abstracts a lot of the process away, at the cost of fine tuned optimization
+    \item fast enough was what I needed.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[t]\frametitle{CUDA Results}
+
+\begin{columns}
+
+  \column{0.5\textwidth}
+
+    \begin{itemize}
+      \item CUDA Impletation
+      \item Minimal optimization
+      \item 50x improvement over sklearn
+      \item Took 0.01 us per datapoint, or 0.01s for whole dataset
+      \item $10^6$ evaluations would take ~2.5 hours!
+    \end{itemize}
+
+
+  \column{0.5\textwidth}
+    \begin{center}
+        \includegraphics[height=6cm]{img/nvidiavert.jpg}
+    \end{center}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[t]\frametitle{Execution speed per N}
+    \begin{center}
+        \includegraphics[width=10cm]{img/allLL.png}
+    \end{center}
+\end{frame}
+
+
+
+\begin{frame}[t]\frametitle{Thanks}
+Code available \url{https://github.com/nayyarv/PyCudaIntro}
+\begin{center}
+Timing Data
+
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Eval & Simple & Sklearn & GPU\tabularnewline
+\hline 
+\hline 
+10 & 0.35 & 0.02  & 0.12\tabularnewline
+\hline 
+100 & 3.45 & 0.05 & 0.02\tabularnewline
+\hline 
+1000 & 34.22 & 0.37 & 0.02\tabularnewline
+\hline 
+10000 & 344.93 & 4.6 & 0.13\tabularnewline
+\hline 
+100000 & 3474.57 & 53.39 & 1.07\tabularnewline
+\hline 
+\end{tabular}
+\end{center}
+
+
+\end{frame}
 
 \end{document}
 

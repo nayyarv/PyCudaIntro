@@ -7,15 +7,15 @@ import numpy as np
 from .cudaLL import chooseGridThread
 
 
-@pytest.mark.parametrize("n,threads,blocks", (
-        (100, 32, 4),
+@pytest.mark.parametrize("n,blocks,threads", (
+        (100, 4, 32),
         (1000, 32, 32),
-        (10000, 64, 157),
-        (100000, 256, 391),
-        (1000000, 512, 1954),
+        (10000, 105, 96),
+        (100000, 348, 288),
+        (1000000, 1009, 992),
 
 ))
-def test_chooser(n, threads, blocks):
+def test_chooser(n, blocks, threads):
     assert chooseGridThread(n) == (blocks, threads)
 
 

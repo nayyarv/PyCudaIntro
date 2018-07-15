@@ -22,8 +22,8 @@ def chooseGridThread(n):
     from math import ceil, sqrt
     nroot = sqrt(n)
     curr = 32
-    while curr * 2 < nroot and curr < 2048:
-        curr *= 2
+    while curr + 32 < nroot and curr < 2048:
+        curr += 32
     nthreads = curr
 
     nblocks = ceil(n / nthreads)
@@ -56,7 +56,7 @@ class GPU_LL(LikelihoodEvaluator):
             mod = SourceModule(f.read().replace(
                 "MAX_THREADS", str(self.numThreads)))
 
-        print("numBlocks: {}, numPoints: {}".format(self.numBlocks, self.numPoints))
+        # print("numBlocks: {}, numPoints: {}".format(self.numBlocks, self.numPoints))
         # Set the right number of threads and blocks given the datasize
 
         self.likelihoodKernel = mod.get_function("likelihoodKernel")
