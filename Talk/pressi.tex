@@ -316,27 +316,31 @@ Could be 3d if necessary (We're gonna forget that fact)
 
 
 \begin{frame}[t]\frametitle{Thanks}
-Code available \url{https://github.com/nayyarv/PyCudaIntro}
+Code available at \url{https://github.com/nayyarv/PyCudaIntro}
 \begin{center}
-Timing Data
+Timing Data (100 iterations)
 
 \begin{tabular}{|c|c|c|c|}
 \hline 
-Eval & Simple & Sklearn & GPU\tabularnewline
+$N$ & Simple & Sklearn & GPU\tabularnewline
 \hline 
 \hline 
-10 & 0.35 & 0.02  & 0.12\tabularnewline
+100 & 0.35 & 0.02  & 0.12\tabularnewline
 \hline 
-100 & 3.45 & 0.05 & 0.02\tabularnewline
+1000 & 3.45 & 0.05 & 0.02\tabularnewline
 \hline 
-1000 & 34.22 & 0.37 & 0.02\tabularnewline
+10000 & 34.22 & 0.37 & 0.02\tabularnewline
 \hline 
-10000 & 344.93 & 4.6 & 0.13\tabularnewline
+100000 & 344.93 & 4.6 & 0.13\tabularnewline
 \hline 
-100000 & 3474.57 & 53.39 & 1.07\tabularnewline
+1000000 & 3474.57 & 53.39 & 1.07\tabularnewline
 \hline 
 \end{tabular}
 \end{center}
+
+CUDA and PyCUDA easily installed via \texttt{apt} on Ubuntu 18.04. 
+
+Project was in Speech Recognition and Bayesian Statistics (MCMC)
 
 
 \end{frame}
