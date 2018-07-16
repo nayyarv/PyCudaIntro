@@ -59,6 +59,8 @@ class GPU_LL(LikelihoodEvaluator):
         # Set the right number of threads and blocks given the datasize
 
         self.likelihoodKernel = mod.get_function("likelihoodKernel")
+        # this is telling PyCUDA what args I'll be passing through later
+        # same syntax as struct module (think pack unpack)
         self.likelihoodKernel.prepare('PPPPiiiP')
 
         self.Xpoints = self.Xpoints.astype(np.float32)

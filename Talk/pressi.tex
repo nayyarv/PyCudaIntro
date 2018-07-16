@@ -259,13 +259,27 @@ Could be 3d if necessary (We're gonna forget that fact)
 \begin{frame}[t]\frametitle{CUDA Architecture}
 
   \begin{itemize}
-    \item Each block runs 32 threads at a time (called warps) and shares a limited amount of memory available to all threads
-    \item GTX 970 = 128 cores * 13 SMs = 52 concurrent warps
-    \item Good idea to ensure blocks are multiple of 32 and that there are many more warps than hardware. 
-    \item Most GPUs have more 32 bit processing power
+    \item Main function is called a kernel
+    \item Each block runs 32 threads at a time (called warps) and shares a limited amount of memory available to all threads. Keep Blocks in multiples of 32 threads.
+    \item GTX 970 = 128 cores * 13 SMs = 52 concurrent warps.  Most GPUs have more 32 bit processing power (float32)
+    \item Generally, Blocks are completed as quickly as possible 
     \item Threads act asynchronously - when they access data, threads give up resources while waiting for data.
-    \item memory access and data transfers (especially between host and device) have a lot of tricks and patterns to optimize (none of which I'm going to investigate)
-    \item main function is called a kernel
+    \item Memory access and data transfers (especially between host and device) have a lot of tricks and patterns to optimize (none of which I'm going to investigate)
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[t]\frametitle{Some CUDA Syntax}
+
+  \begin{itemize}
+    \item Specify the kernel function with the \texttt{\_\_global\_\_} keyword.
+    \item Specify GPU function \texttt{\_\_device\_\_} keyword. (As opposed to CPU function, .cu files can be compiled with \texttt{nvcc})
+    \item share memory/data across with \texttt{\_\_shared\_\_} keyword. Only available within block
+    \item pause thread execution till all threads have reached same point \texttt{\_\_syncthreads()}. Async-esque
+    \item \texttt{int index = blockIdx.x * blockDim.x + threadIdx.x}
+    is considered idiomatic cuda for indexing global arrays
 
   \end{itemize}
 
@@ -276,8 +290,8 @@ Could be 3d if necessary (We're gonna forget that fact)
 
   \begin{itemize}
     \item CUDA is complex. C++ is messy. I'm a maths major
-    \item The mathematics needed to be done in Python for quick implementation and easy refinement.
-    \item Allows for easier kernel writing since you can replace \#define's once you've seen the data (defining threads is easy)
+    \item The mathematics (parameter variation) needed to be done in Python for quick implementation and easy refinement.
+    \item Allows for easier kernel writing since you can avoid mallocs for memory management and use static sized arrays
     \item PyCUDA abstracts a lot of the process away, at the cost of fine tuned optimization
     \item fast enough was what I needed.
   \end{itemize}

@@ -5,8 +5,6 @@ import pytest
 import numpy as np
 
 from likelihood.scikitLL import ScikitLL
-from likelihood.simple import SingleCoreLL
-from likelihood.cudaLL import GPU_LL
 
 N = 100
 d = 13
@@ -21,12 +19,14 @@ def randMat(dim, N=numTests):
 
 @pytest.fixture(scope="module", params=randMat((N, d)))
 def likelihoods(request):
+    from likelihood.simple import SingleCoreLL
     return [SingleCoreLL(request.param, K),
             ScikitLL(request.param, K)]
 
 
 @pytest.fixture(scope="module", params=randMat((N, d)))
 def gpu_likelihoods(request):
+    from likelihood.cudaLL import GPU_LL
     return [ScikitLL(request.param, K),
             GPU_LL(request.param, K)]
 

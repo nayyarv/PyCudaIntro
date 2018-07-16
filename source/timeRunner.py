@@ -13,7 +13,11 @@ number = 100
 
 setup = """
 import numpy as np
-from likelihood import ScikitLL, SingleCoreLL, GPULL
+from likelihood import ScikitLL, SingleCoreLL
+try:
+    from likelihood import GPULL
+except ImportError:
+    pass
 
 N = {N}
 d = 13
