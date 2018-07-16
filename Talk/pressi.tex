@@ -80,7 +80,7 @@ f(\mathbf{x}|\boldsymbol{\pi},\boldsymbol{\mu},\boldsymbol{\Sigma})= & \sum_{k=1
 \end{align*}
 \end{block}
 
-\begin{block}{Log Likelihood (function of concern)}
+\begin{block}{Log Likelihood (thing to compute)}
   \begin{align*}
   l(\mu,\Sigma,\mathbf{x})  = &\sum_{i=1}^{N}\ln\left(\sum_{k=1}^{K}\pi_{k}\mathcal{N}(x_{i}|\mu_{k},\Sigma_{k})\right)\label{eq:LogLikelihood}
   \end{align*}
@@ -111,8 +111,8 @@ Computational Numbers
     \begin{itemize}
       \item Eh, my computer is fast enough
       \item Pure Python (numpy)
-      \item Averaged 36 us per datapoint, or 36s for whole dataset
-      \item $10^6$ evaluations would take ~1 year
+      \item <2->Averaged 36 us per datapoint, or 36s for whole dataset
+      \item <2->$10^6$ evaluations would take ~1 year
     \end{itemize}
 
 
@@ -142,9 +142,9 @@ Computational Numbers
     \begin{itemize}
       \item Stand on the shoulders of giants (scikit-learn)
       \item Reverse engineered the likelihood evaluator
-      \item 72x improvement!
-      \item Took 0.5 us per datapoint, or 0.5s for whole dataset
-      \item $10^6$ evaluations would take ~5 days!
+      \item <2->72x improvement!
+      \item <2->Took 0.5 us per datapoint, or 0.5s for whole dataset
+      \item <2->$10^6$ evaluations would take ~5 days!
     \end{itemize}
 
 
@@ -297,9 +297,9 @@ Could be 3d if necessary (We're gonna forget that fact)
     \begin{itemize}
       \item CUDA Impletation
       \item Minimal optimization
-      \item 50x improvement over sklearn
-      \item Took 0.01 us per datapoint, or 0.01s for whole dataset
-      \item $10^6$ evaluations would take ~2.5 hours!
+      \item <2->50x improvement over sklearn
+      \item <2->Took 0.01 us per datapoint, or 0.01s for whole dataset
+      \item <2->$10^6$ evaluations would take ~2.5 hours!
     \end{itemize}
 
 
