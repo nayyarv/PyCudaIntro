@@ -221,32 +221,19 @@ b_{n1} &  &  & b
 
 Sum an array $\left(\begin{array}{cccc} a_{1} & a_{2} & \cdots & a_{n}\end{array}\right)$
 
-  \begin{itemize}
-    \item<1-> Single Core = $O(n)$
-    \item<1> CUDA ??
-    \item<2-> theoretical CUDA = $O(lg (n))$
-    \item<3-> First pass, have $N/2$ threads add pos $i$ and pos $i+N/2$
-    \item<3-> Second pass, have $N/4$ threads add pos $i$ and pos $i+N/4$
-
-  \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}[t]\frametitle{Thinking with CUDA (Summing an Array)}
-
-Sum an array $\left(\begin{array}{cccc} a_{1} & a_{2} & \cdots & a_{n}\end{array}\right)$
 
   \begin{itemize}
     \item<1-> Single Core = $O(n)$
     \item<1> CUDA ??
     \item<2-> theoretical CUDA = $O(lg (n))$
     \item<3-> First pass, have $N/2$ threads add pos $i$ and pos $i+N/2$
-    \item<3-> Second pass, have $N/4$ threads add pos $i$ and pos $i+N/4$
+    \item<4-> Second pass, have $N/4$ threads add pos $i$ and pos $i+N/4$
+    \item<4-> Etcetera..
 
   \end{itemize}
 
 \end{frame}
+
 
 \begin{frame}[t]\frametitle{CUDA Architecture}
 A grid of blocks of threads.
@@ -271,7 +258,7 @@ Could be 3d if necessary (We're gonna forget that fact)
 \end{frame}
 
 
-\begin{frame}[t]\frametitle{Some CUDA Syntax}
+\begin{frame}[t]\frametitle{Some CUDA Syntax (C++)}
 
   \begin{itemize}
     \item Specify the kernel function with the \texttt{\_\_global\_\_} keyword.
@@ -280,6 +267,8 @@ Could be 3d if necessary (We're gonna forget that fact)
     \item pause thread execution till all threads have reached same point \texttt{\_\_syncthreads()}. Async-esque
     \item \texttt{int index = blockIdx.x * blockDim.x + threadIdx.x}
     is considered idiomatic cuda for indexing global arrays
+    \item \texttt{int stride = blockDim.x * gridDim.x;} is used in situations there are fewer threads than data points.
+
 
   \end{itemize}
 
@@ -293,6 +282,7 @@ Could be 3d if necessary (We're gonna forget that fact)
     \item The mathematics (parameter variation) needed to be done in Python for quick implementation and easy refinement.
     \item Allows for easier kernel writing since you can avoid mallocs for memory management and use static sized arrays
     \item PyCUDA abstracts a lot of the process away, at the cost of fine tuned optimization
+    \item Some investigation needed for example 2 dim numpy arrays were flattened to 1d on the device
     \item fast enough was what I needed.
   \end{itemize}
 
