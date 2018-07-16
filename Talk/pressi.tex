@@ -183,7 +183,7 @@ It's good to be rigorous - Math Major
 \begin{frame}[t]\frametitle{CUDA}
   \begin{itemize}
     \item Stood for Compute Unified Device Architecture but no one cared so this was forgotten
-    \item CUDA devices have Streaming Multiprocessors (SMs) and each has a number of CUDA cores. CUDA runs threads in batches of 32 called Warps. GTX970 has 13 SMs with 128 CUDA cores each.
+    \item CUDA devices have Streaming Multiprocessors (SMs) and each has a number of CUDA cores. GTX970 has 13 SMs with 128 CUDA cores each.
     \item in the CUDA paradigm, you need plenty of independent threads to take advantage of the architecture and to minimize memory latency via async scheduling.
     \item Not many guarantees of all threads running exactly in parallel, so code still needs to be thread safe. 
     \item number of threads is magnitudes greater than in standard multicore programming. 
@@ -247,9 +247,8 @@ Could be 3d if necessary (We're gonna forget that fact)
 
   \begin{itemize}
     \item Main function is called a kernel
-    \item Each block runs 32 threads at a time (called warps) and shares a limited amount of memory available to all threads. Keep Blocks in multiples of 32 threads.
+    \item Blocks run groups of 32 threads called warps with shared memory available to all threads in blocks. Generally, blocks are completed as quickly as possible (block-thread tradeoff)
     \item GTX 970 = 128 cores * 13 SMs = 52 concurrent warps.  Most GPUs have more 32 bit processing power (float32)
-    \item Generally, Blocks are completed as quickly as possible 
     \item Threads act asynchronously - when they access data, threads give up resources while waiting for data.
     \item Memory access and data transfers (especially between host and device) have a lot of tricks and patterns to optimize (none of which I'm going to investigate)
 
