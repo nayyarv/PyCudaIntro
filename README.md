@@ -1,10 +1,10 @@
 # PyCudaIntro
 
-This short talk is about the idea of numerical optimisation in python, using GMMs as an illuminating example. This introduces the basic concepts, terminology and syntax used in CUDA, as well as testing validity and time calculations.
+This short talk is about the idea of numerical optimisation in python, using GMMs as an illuminating example and CUDA as the main solution. This introduces the basic concepts, terminology and syntax used in CUDA, as well as testing validity and time calculations.
 
 This doesn't look into CUDA too deeply (for fears of it gazing back :P), or how PyCUDA works, but rather should be enough for you to get basic CUDA acceleration working for your Python Code. 
 
-This computational aspect was part of a thesis into emotion recognition using Markov Chain Monte Carlo. (Hence the 13 dimensional data (MFCCs) and 1 million likelihood evaluations).
+This computational aspect was part of a thesis into emotion recognition using Markov Chain Monte Carlo. (Hence the 13 dimensional data (MFCCs) and 1 million likelihood evaluations). Code has had a significant facelift since being first written.
 
 The equation being optimised is the [log likelihood](Talk/pressi.pdf) on slide 4.
 
