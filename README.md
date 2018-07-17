@@ -12,13 +12,14 @@ Presented at July's Sydney Python meet.
 
 ## Source
 
-likelihood/
-	simple.py - an inefficient pure python/numpy implementation written by me before realising computational time was a thing
-	scikitLL.py - an implementation using scikit-learn's GMM code. Originally used the `sklearn.mixture.GMM` class but this has been deprecated and significantly sped up with the `sklearn.mixture.gaussian_mixture.GaussianMixture` class. Uses scipy and I suspect compiled fortran/C subroutes under the hood
-	cudaLL.py - an implementation using `PyCUDA` and the my kernel as in `kernel.cu`.  The heavy lifting is in the .cu file and the python file is just setting everything up.
-	base.py - the object to mock/subclass for interchangeable use
-timeRunner.py - runs the various implenetations with various powers of 10. Use `--method` to choose the method to check
-test_validity - a pytest file to compare the results of the output using randomized input
+- likelihood/
+	- [simple.py](source/likelihood/simple.py) - an inefficient pure python/numpy implementation written by me before realising computational time was a thing
+	- [scikitLL.py](source/likelihood/scikitLL.py) - an implementation using scikit-learn's GMM code. Originally used the `sklearn.mixture.GMM` class but this has been deprecated and significantly sped up with the `sklearn.mixture.gaussian_mixture.GaussianMixture` class. Uses scipy and I suspect compiled fortran/C subroutes under the hood
+	- [cudaLL.py](source/likelihood/cudaLL.py) - an implementation using `PyCUDA` and the my kernel as in [kernel.cu](source/likelihood/kernel.cu).  The heavy lifting is in the .cu file and the python file is just setting everything up.
+	- base.py - the object to mock/subclass for interchangeable use
+	- tests.py - some quick checks
+- timeRunner.py - runs the various implenetations with various powers of 10. Use `--method` to choose the method to check
+- test_validity - a pytest file to compare the results of the output using randomized input
 
 ## Talk
 
