@@ -25,10 +25,6 @@ Presented at July's Sydney Python meet.
 
 Includes the .tex file and the .pdf file as compiled. Not a great complete reference, but a decent starting point.
 
-## Notebooks
-
-Really not necessary, but included anyway
-
 # Links
 
 - [PyCUDA](https://documen.tician.de/pycuda/) - the package used to abstract away the CUDA interface. Documentation is good enough, though a bit sparse and code itself doesn't have much documentation, which makes advanced usage tricky. Has a small section on metaprogramming CUDA too which is very interesting.
