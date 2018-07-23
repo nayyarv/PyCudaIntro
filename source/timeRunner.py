@@ -13,11 +13,7 @@ number = 100
 
 setup = """
 import numpy as np
-from likelihood import ScikitLL, SingleCoreLL
-try:
-    from likelihood import GPULL
-except ImportError:
-    pass
+from likelihood import {LL}
 
 N = {N}
 d = 13
@@ -38,8 +34,7 @@ runs = "eval.loglikelihood(testMu, testSigma, testWeights)"
 
 @click.command()
 @click.option("--method",
-              type=click.Choice("SingleCoreLL,ScikitLL,GPULL".split(",")),
-              default="ScikitLL")
+              type=click.Choice("SingleCoreLL,ScikitLL,GPULL".split(",")))
 def main(method):
     print(f"{method} (100 iterations)")
     print("# pow, N, tot_time(s), scaled_time (us)")
