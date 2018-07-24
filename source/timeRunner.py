@@ -34,7 +34,7 @@ runs = "eval.loglikelihood(testMu, testSigma, testWeights)"
 
 @click.command()
 @click.option("--method",
-              type=click.Choice("SingleCoreLL,ScikitLL,GPULL".split(",")))
+              type=click.Choice("SingleCoreLL,SingleCoreLLFast,ScikitLL,GPULL".split(",")))
 def main(method):
     print(f"{method} (100 iterations)")
     print("# pow, N, tot_time(s), scaled_time (us)")

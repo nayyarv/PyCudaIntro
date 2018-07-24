@@ -3,7 +3,7 @@
 __author__ = "Varun Nayyar <nayyarv@gmail.com>"
 
 
-from .simple import SingleCoreLL
+from .simple import SingleCoreLL, SingleCoreLLFast
 
 try:
     from .scikitLL import ScikitLL
