@@ -49,6 +49,15 @@ class SingleCoreLLSlow(LikelihoodEvaluator):
         return np.sum(ll)
 
 
+
+
+
+
+
+
+
+
+
 class SingleCoreLLFast(SingleCoreLLSlow):
     def loglikelihood(self, means, diagCovs, weights):
         numMixtures = self.numMixtures
