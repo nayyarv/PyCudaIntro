@@ -42,7 +42,7 @@ def main(method):
         N = 10 ** Npow
         rtime = timeit.timeit(runs, setup.format(N=N, LL=method),
                               number=100)
-        print(f"{Npow}, {N}, {rtime:.2f}, {rtime/N * 10**4:.2f}")
+        print(f"{Npow}, {N: >8}, {rtime:.2f}, {rtime/N * 10**4:.2f}")
     print()
 
 

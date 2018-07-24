@@ -4,7 +4,12 @@ __author__ = "Varun Nayyar <nayyarv@gmail.com>"
 import pytest
 import numpy as np
 
-from likelihood.scikitLL import ScikitLL
+from likelihood import ScikitLL
+
+try:
+    from likelihood import GPULL
+except ImportError:
+    GPULL = False
 
 N = 100
 d = 13
@@ -26,7 +31,7 @@ def likelihoods(request):
 
 @pytest.fixture(scope="module", params=randMat((N, d)))
 def gpu_likelihoods(request):
-    from likelihood.cudaLL import GPU_LL
+    GPU_LL = pytest.importorskip('likelihood.GPULL')
     return [ScikitLL(request.param, K),
             GPU_LL(request.param, K)]
 
@@ -42,6 +47,7 @@ def test_SK_consistent(likelihoods, means, covars, weights):
     baseLL = baseEval.loglikelihood(means, covars, weights)
     scikitLL = scikitEval.loglikelihood(means, covars, weights)
     assert abs(baseLL - scikitLL) < 0.0001
+
 
 
 @pytest.mark.parametrize('means', randMat((K, d)))
