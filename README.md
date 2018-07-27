@@ -19,7 +19,7 @@ Presented at July's Sydney Python meet.
 	- base.py - the object to mock/subclass for interchangeable use
 	- tests.py - some quick checks
 - timeRunner.py - runs the various implenetations with various powers of 10. Use `--method` to choose the method to check
-- test_validity - a pytest file to compare the results of the output using randomized input
+- testValidity - a pytest file to compare the results of the output using randomized input
 
 ## Talk
 
