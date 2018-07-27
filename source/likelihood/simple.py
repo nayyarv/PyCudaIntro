@@ -35,12 +35,12 @@ class SingleCoreLLSlow(LikelihoodEvaluator):
         for i in range(numMixtures):
             CovDet[i] = 1.0 / np.sqrt(np.prod(diagCovs[i]))
 
-        invCovs = 1/diagCovs
+        invCovs = 1 / diagCovs
 
         for i in range(self.numPoints):
             for mixes in range(numMixtures):
                 tp = self.Xpoints[i] - means[mixes]
-                temp =  np.dot(tp**2, invCovs[mixes])
+                temp = np.dot(tp ** 2, invCovs[mixes])
                 temp *= -0.5
                 ll[i] += weights[mixes] * np.exp(temp) * CovDet[mixes]
 
@@ -49,13 +49,8 @@ class SingleCoreLLSlow(LikelihoodEvaluator):
         return np.sum(ll)
 
 
-
-
-
-
-
-
-
+# ensure this remains the case for backwards compatibility
+SingleCoreLL = SingleCoreLLSlow
 
 
 class SingleCoreLLFast(SingleCoreLLSlow):
@@ -65,28 +60,35 @@ class SingleCoreLLFast(SingleCoreLLSlow):
         assert (diagCovs.shape == (numMixtures, self.dim))
         assert (len(weights) == numMixtures)
 
-        ll = np.zeros(self.numPoints)
         constMulti = self.dim / 2.0 * np.log(2 * np.pi)
         CovDet = np.zeros(numMixtures)
         for i in range(numMixtures):
             CovDet[i] = 1.0 / np.sqrt(np.prod(diagCovs[i]))
-      
+
         llMat = np.zeros((self.numPoints, numMixtures))
 
+        # XP = (N, d)
+        # means & covars = (K, d)
+        # weights = (K,)
+
         for mix in range(numMixtures):
-            # this is the normal pdf exponent
+            # this is the normal pdf exponent. Since Xp is (N,d) and means[mix] and diagCovs[mix]
+            # are (d,) arrays, these operations are applied columnwise.
             tp = (self.Xpoints - means[mix]) / np.sqrt(diagCovs[mix])
-            # this is the dot products of every row of tp dotted with itself. 
-            # It's a row vector of length numPoints.
-            # np.dot is matmul for 2d matrices so np.diag(np.dot(tp, tp.T)) does n^2
-            # unecessary computations. The einsum code is the real secret sauce of this 
-            # code here.
-            exponent = np.einsum('ij,ij->i', tp , tp)
-            # exponent = np.diag(np.dot(tp, tp.T))
+            # tp is now an (N, d) matrix. I need to calculate the norm of this value for each n.
+            # This is done by squaring and summing across axis 1 which sums the matrix across it's columns
+            exponent = np.sum(tp ** 2, 1)
+            # exponent is now an (N,) array.
+            # we now calculate the weight * normalpdf which is where the below rhs does
+            # this is a (N,) array too. We need to sum these up for each n across the mixtures
+            # making a list of these values wouldn't work since we need to add the first item of the array
+            # from each list, take the log and record the sum. This would force a N length loop which
+            # we're trying to avoid.
+            # Insread we generate an empty array (N, K) and populate it with the result as below
             llMat[:, mix] = weights[mix] * CovDet[mix] * np.exp(-0.5 * exponent)
-        # sum all rows
+        # the np.sum(llMat, 1) sums across columns as before, we then take the log of that value
+        # and then sum it.
+        # we have a constant offset generated from expanding the likelihood a little.
+        # this is then subrtracted for consistency with other methods
+        # overall this method is only 1 to 1.5x slower than the scikit fast version
         return np.sum(np.log(np.sum(llMat, 1))) - self.numPoints * constMulti
-
-
-
-SingleCoreLL = SingleCoreLLSlow
